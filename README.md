@@ -44,7 +44,7 @@
    - **Database**: PostgreSQL (structured), Elasticsearch (text), Neo4j (knowledge graphs).  
 
 2. **Frontend**:  
-   - **Chat Interface**: React.js + Rasa/DialogFlow.  
+   - **Chat Interface**: React.js + Langflow.  
    - **Dashboard**: Plotly/Dash for visualizations.  
 
 3. **Deployment**:  
