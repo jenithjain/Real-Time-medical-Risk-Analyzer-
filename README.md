@@ -28,12 +28,6 @@
 - **Risk Heatmaps**: Geographic distribution of high-risk cases.  
 - **Audit Trails**: Track AI decisions vs. human overrides.  
 - **Automated Reports**: One-click PDF/Excel generation.  
-
-### **4. Hackathon-Winning Add-Ons**  
-- **Gamification**: Health scores, badges, and progress tracking.  
-- **Emergency Triage**: Alerts for critical risks (e.g., cardiac symptoms).  
-- **Mock Insurance Plans**: Simulate premiums based on risk scores.  
-
 ---
 
 ## 🛠️ Technical Architecture  
@@ -49,7 +43,7 @@
 
 3. **Deployment**:  
    - **Cloud**: AWS/Azure (HIPAA-compliant buckets).  
-   - **DevOps**: Docker/Kubernetes, GitHub Actions CI/CD.  
+   - **DevOps**: Kubernetes, GitHub Actions CI/CD.  
 
 ### **Key Dependencies**  
 ```plaintext
