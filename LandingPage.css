@@ -1,0 +1,191 @@
+.hero {
+    text-align: center;
+    max-width: 48rem;
+    margin: 60px auto;
+    padding-top: 10px;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--text-color);
+    color: white;
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--border-color);
+    box-shadow: 4px 4px 0px 0px var(--primary-color);
+}
+
+.hero-badge-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.hero-highlight {
+    position: relative;
+    display: inline-block;
+    margin: 0 0.5rem;
+}
+
+.hero-highlight-text {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-highlight-bg {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0;
+    right: 0;
+    height: 1rem;
+    background-color: var(--primary-color);
+    z-index: 0;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    color: rgba(21, 22, 22, 0.7);
+    margin-bottom: 2rem;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.feature-boxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 800px;
+    margin-bottom: 50px;
+}
+.feature-box {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 2px solid var(--border-color);
+    box-shadow: 4px 4px 0px 0px var(--border-color);
+    transition: all 0.2s;
+    width: 200px;
+    height: 300px;
+    cursor: pointer;
+}
+
+.feature-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px 0px var(--border-color);
+}
+
+.feature-box:nth-child(1) {
+    background: rgba(255, 240, 245, 0.8); /* Soft pink background */
+}
+.feature-box:nth-child(2) {
+    background: rgba(240, 248, 255, 0.8); /* Soft blue background */
+}
+.feature-box:nth-child(3) {
+    background: rgba(240, 255, 240, 0.8); /* Soft green background */
+}
+.feature-icon {
+    background-color: #D1FF3F; /* Bright lime green from the image */
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--primary-color);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0px 0px var(--border-color);
+}
+.feature-box h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+.feature-box p {
+    color: rgba(21, 22, 22, 0.7);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+.feature-link {
+    font-weight: 600;
+    color: var(--text-color);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+.feature-link:hover {
+    color: #D1FF3F; /* Matching the icon color */
+}
+/* Update hover effect to maintain consistency */
+.feature-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 4px 4px 0px 0px rgba(21, 22, 22, 0.1);
+}
+.feature-link:hover {
+    color: #D1FF3F; /* Matching the icon color */
+}
+.cta-button {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+    .feature-boxes {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+.nav-buttons {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.nav-button {
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid var(--border-color);
+    box-shadow: 4px 4px 0px 0px var(--border-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-button-primary {
+    background: var(--primary-color);
+    color: var(--text-color);
+}
+
+.nav-button-secondary {
+    background: white;
+    color: var(--text-color);
+}
+
+.nav-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px var(--border-color);
+}

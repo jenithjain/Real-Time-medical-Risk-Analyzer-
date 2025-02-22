@@ -1,0 +1,86 @@
+.auth-page {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body:has(.auth-page) {
+    overflow: hidden;
+}
+
+.feature-card {
+    margin: auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 2px solid var(--border-color);
+    box-shadow: 4px 4px 0px 0px var(--border-color);
+    width: 400px;
+}
+
+.text-center {
+    text-align: center;
+}
+.error-message {
+    background-color: #fee2e2;
+    border: 1px solid #ef4444;
+    color: #dc2626;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.newsletter-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--border-color);
+    font-size: 1rem;
+    outline: none;
+}
+/* Add at the end of Auth.css */
+.features-background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.features-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgb(21, 22, 22) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.1;
+}
+
+.features-decoration-1,
+.features-decoration-2 {
+    position: absolute;
+    border-radius: 9999px;
+    opacity: 0.2;
+    filter: blur(5rem);
+}
+
+.features-decoration-1 {
+    top: 5rem;
+    left: 2.5rem;
+    width: 15rem;
+    height: 15rem;
+    background: rgb(255, 182, 193);
+}
+
+.features-decoration-2 {
+    bottom: 10rem;
+    right: 5rem;
+    width: 20rem;
+    height: 20rem;
+    background: rgb(182, 255, 182);
+}

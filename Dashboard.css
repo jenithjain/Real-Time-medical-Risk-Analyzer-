@@ -1,0 +1,192 @@
+/* Remove duplicate declarations and add these at the top */
+body {
+    overflow-x: hidden;
+  }
+  
+  .dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    margin-top: 0;
+    overflow-x: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .dashboard-content {
+    margin-top: 3rem;
+    padding: 1rem;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  /* Add these new styles while keeping existing ones */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 10px;
+    padding: 2rem;
+  }
+  .circular-progress .inner {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .dashboard-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border : 2px solid var(--border-color);
+    box-shadow: 3px 3px 0px 0px var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: auto;
+    min-height: 400px;
+  }
+  .dashboard-card:hover {
+    transform: translateY(8px);
+    box-shadow: 4px 4px 0px 0px var(--border-color);
+  }
+  .chart-container {
+    position: relative;
+    height: 300px;
+    margin-top: 1rem;
+  }
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  .dashboard-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: black;
+  }
+  .dashboard-subtitle {
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 1.1rem;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .stat-item {
+    background: rgba(var(--primary-color-rgb), 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-color);
+    opacity: 0.8;
+  }
+  /* Enhanced Risk Meter Styles */
+  .risk-meter-container {
+    position: relative;
+  }
+  .circular-progress {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(
+      var(--color) calc(var(--percentage) * 1%),
+      #f3f4f6 0
+    );
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .circular-progress::after {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background: white;
+  }
+  /* Animation for charts */
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .dashboard-card {
+    animation: slideIn 0.5s ease forwards;
+  }
+  /* Responsive Design Improvements */
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+    .dashboard-card {
+      min-height: 350px;
+    }
+    .chart-container {
+      height: 250px;
+    }
+  }
+  .dashboard-nav {
+      background: var(--bg-color);
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .nav-brand {
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-item, .logout-button {
+      color: var(--text-color);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+    .nav-item:hover, .logout-button:hover {
+      background: var(--primary-color);
+    }
+    .logout-button {
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
