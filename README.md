@@ -3,6 +3,8 @@
 
 ---
 
+
+
 ## 📌 Overview  
 **MediRisk AI** is an end-to-end system that processes medical responses in real-time, generates risk scores, adapts questionnaires dynamically, and creates actionable insurance reports. Designed for insurers and clinicians, it integrates medical guidelines and provides underwriters with intuitive risk insights.  
 
