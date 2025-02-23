@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Health Predictor</title>
+  <style>
+    :root {
+      --primary-color: #D6F32F ;
+      --text-color: #374151;
+      --bg-color: #F9FAFB;
+      --border-color: #E5E7EB;
+      --nav-bg: #FFFFFF;
+      --chat-bg: #FFFFFF;
+      --bot-msg-bg: #F7F7F8;
+      --user-msg-bg: #DCFCE7;
+      --message-padding: 1.5rem;
+      --radius-lg: 12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 1rem;
+      margin: 0;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--chat-bg);
+    }
+
+    #mainContainer {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    #sidebar {
+      display: flex;
+      flex-direction: column;
+      width: 320px;
+      background: var(--chat-bg);
+      border-right: 1px solid var(--border-color);
+      position: relative;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #chatContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--chat-bg);
+      border-radius: 0;
+      border: none;
+      border-left: 1px solid var(--border-color);
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    #chatWindow {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--message-padding);
+      scroll-behavior: smooth;
+    }
+
+    #inputArea {
+      padding: 1.5rem;
+      background: var(--chat-bg);
+      border-top: 1px solid var(--border-color);
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    #chatInputArea {
+      background: var(--chat-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      margin-top: 1rem;
+    }
+
+    .message {
+      display: flex;
+      padding: var(--message-padding);
+      margin: 1rem auto;
+      animation: slideIn 0.3s ease;
+      max-width: 80%;
+      border-radius: var(--radius-lg);
+      line-height: 1.8;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bot {
+      background-color: var(--bot-msg-bg);
+      border: 1px solid var(--border-color);
+    }
+
+    .user {
+      background-color: var(--user-msg-bg);
+      text-align: left;
+      border: 1px solid var(--border-color);
+    }
+
+    #inputArea {
+      padding: 1rem;
+      background: var(--chat-bg);
+      border-top: 1px solid var(--border-color);
+    }
+
+    #chatInputArea {
+      background: var(--chat-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      margin: 1rem auto;
+      border: 1px solid var(--border-color);
+      position: relative;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      background: transparent;
+      resize: none;
+      height: 24px;
+      line-height: 24px;
+      margin: 0;
+    }
+
+    #userInput:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(214, 243, 47, 0.2);
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.875rem;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    #pdfViewer {
+      flex: 1;
+      background: var(--bg-color);
+      border-left: 1px solid var(--border-color);
+    }
+
+    #pdfViewer iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      #mainContainer {
+        flex-direction: column;
+      }
+
+      #sidebar {
+        width: 100%;
+        height: 60vh;
+      }
+
+      #pdfViewer {
+        height: 40vh;
+      }
+
+      .message {
+        padding: 1rem;
+      }
+    }
+
+    #pdfFile {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: white;
+    }
+
+    #userInput {
+      width: calc(100% - 120px);
+      padding: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-right: 1rem;
+      background: white;
+      transition: border-color 0.3s ease;
+    }
+
+    #userInput:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      #chatWindow {
+        height: 50vh;
+        width: 50rem;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+
+      #userInput {
+        width: 100%;
+        margin-bottom: 1rem;
+        margin-right: 0;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+    #mainContainer {
+      display: flex;
+      gap: 2rem;
+      height: calc(100vh - 4rem);
+      margin: 2rem auto;
+      max-width: 1400px;
+      padding: 0 2rem;
+    }
+
+    #uploadArea {
+      background: var(--nav-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      border: 2px solid var(--border-color);
+      margin-bottom: 1rem;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #uploadArea.hidden {
+      opacity: 0;
+      transform: translateY(-20px);
+      height: 0;
+      padding: 0;
+      margin: 0;
+      border: none;
+    }
+
+    #chatContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--chat-bg);
+      border-radius: 0;
+      border: none;
+      overflow: hidden;
+    }
+
+    #pdfViewer {
+      flex: 1;
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--border-color);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    #chatWindow {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--message-padding);
+      scroll-behavior: smooth;
+      transition: height 0.3s ease;
+    }
+
+    #inputArea {
+      padding: 1.5rem;
+      background: var(--chat-bg);
+      border-top: 1px solid var(--border-color);
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    #chatInputArea {
+      background: var(--chat-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      margin-top: 1rem;
+    }
+
+    .message {
+      display: flex;
+      padding: var(--message-padding);
+      margin: 1rem auto;
+      animation: slideIn 0.3s ease;
+      max-width: 80%;
+      border-radius: var(--radius-lg);
+      line-height: 1.8;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bot {
+      background-color: var(--bot-msg-bg);
+      border: 1px solid var(--border-color);
+    }
+
+    .user {
+      background-color: var(--user-msg-bg);
+      text-align: left;
+      border: 1px solid var(--border-color);
+    }
+
+    #inputArea {
+      padding: 1rem;
+      background: var(--chat-bg);
+      border-top: 1px solid var(--border-color);
+    }
+
+    #chatInputArea {
+      background: var(--chat-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      margin: 1rem auto;
+      border: 1px solid var(--border-color);
+      position: relative;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      background: transparent;
+      resize: none;
+      height: 24px;
+      line-height: 24px;
+      margin: 0;
+    }
+
+    #userInput:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(214, 243, 47, 0.2);
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.875rem;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    #pdfViewer {
+      flex: 1;
+      background: var(--bg-color);
+      border-left: 1px solid var(--border-color);
+    }
+
+    #pdfViewer iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      #mainContainer {
+        flex-direction: column;
+      }
+
+      #sidebar {
+        width: 100%;
+        height: 60vh;
+      }
+
+      #pdfViewer {
+        height: 40vh;
+      }
+
+      .message {
+        padding: 1rem;
+      }
+    }
+
+    #pdfFile {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: white;
+    }
+
+    #userInput {
+      width: calc(100% - 120px);
+      padding: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-right: 1rem;
+      background: white;
+      transition: border-color 0.3s ease;
+    }
+
+    #userInput:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      #chatWindow {
+        height: 50vh;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+
+      #userInput {
+        width: 100%;
+        margin-bottom: 1rem;
+        margin-right: 0;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+    #mainContainer {
+      display: flex;
+      height: calc(100vh - 4rem);
+      margin: 0;
+      padding: 0;
+    }
+
+    #sidebar {
+      flex: 0 0 300px;
+      background: var(--nav-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 2px solid var(--border-color);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #pdfViewer {
+      display: none;
+    }
+
+    #pdfViewer iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Health Predictor Chatbot</h1>
+  <div id="mainContainer">
+    <div id="chatContainer">
+      <div id="pdfViewer">
+        <!-- PDF will be displayed here -->
+      </div>
+      <div id="chatWindow"></div>
+      <div id="inputArea">
+        <div id="chatInputArea">
+          <input type="file" id="pdfFile" accept="application/pdf" style="display: none;">
+          <input type="text" id="userInput" placeholder="Type your message or upload a PDF file...">
+          <button id="uploadButton" title="Upload PDF">📎</button>
+          <button id="sendButton">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    let conversationId = null;
+    
+    function addMessage(sender, text) {
+      const chatWindow = document.getElementById("chatWindow");
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "message " + sender;
+      msgDiv.textContent = text;
+      chatWindow.appendChild(msgDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+    // Add keypress event listener for Enter key
+    document.getElementById("userInput").addEventListener("keypress", async (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const userInput = document.getElementById("userInput");
+        const answer = userInput.value.trim();
+        userInput.value = "";
+        
+        if (answer) {
+          addMessage("user", answer);
+        } else {
+          addMessage("user", "[Skipped]");
+        }
+        
+        try {
+          const response = await fetch("/answer", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ conversationId, answer })
+          });
+          const data = await response.json();
+          if (data.error) {
+            addMessage("bot", "Error: " + data.error);
+          } else {
+            addMessage("bot", data.botMessage);
+          }
+        } catch (err) {
+          addMessage("bot", "Error: " + err.message);
+        }
+      }
+    });
+    // Start conversation when PDF is uploaded
+    document.getElementById("uploadButton").addEventListener("click", () => {
+      document.getElementById("pdfFile").click();
+    });
+
+    document.getElementById("pdfFile").addEventListener("change", async () => {
+      const fileInput = document.getElementById("pdfFile");
+      if (!fileInput.files[0]) {
+        alert("Please select a PDF file.");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("pdfFile", fileInput.files[0]);
+      
+      addMessage("user", "Uploading PDF file...");
+      
+      try {
+        const response = await fetch("/start", { method: "POST", body: formData });
+        const data = await response.json();
+        if (data.error) {
+          addMessage("bot", "Error: " + data.error);
+        } else {
+          conversationId = data.conversationId;
+          addMessage("bot", data.botMessage);
+          document.getElementById("chatInputArea").style.display = "flex";
+        }
+      } catch (err) {
+        addMessage("bot", "Error: " + err.message);
+      }
+    });
+    
+    // Send answer for follow-up questions
+    document.getElementById("sendButton").addEventListener("click", async () => {
+      const userInput = document.getElementById("userInput");
+      const answer = userInput.value.trim();
+      if (!answer) return;
+      addMessage("user", answer);
+      userInput.value = "";
+      
+      try {
+        const response = await fetch("/answer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ conversationId, answer })
+        });
+        const data = await response.json();
+        if (data.error) {
+          addMessage("bot", "Error: " + data.error);
+        } else {
+          addMessage("bot", data.botMessage);
+        }
+      } catch (err) {
+        addMessage("bot", "Error: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
