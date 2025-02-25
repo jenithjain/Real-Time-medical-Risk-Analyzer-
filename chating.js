@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const upload = multer({ dest: "uploads/" });
 
 // OpenAI Setup (update token/endpoint as needed)
-const token = "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";
+const token = "**********************************************";
 const endpoint = "https://models.inference.ai.azure.com";
 const modelName = "gpt-4o-mini";
 const client = new OpenAI({ baseURL: endpoint, apiKey: token });
