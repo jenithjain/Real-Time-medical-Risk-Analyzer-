@@ -37,12 +37,12 @@
 ## 🛠️ Technical Architecture  
 ### **System Components**  
 1. **Backend**:  
-   - **Real-Time API**: FastAPI/Node.js for EHR/wearable integration.  
+   - **Real-Time API**: FastAPI,Node.js, express.js .  
    - **ML Models**: XGBoost for risk prediction, Hugging Face for NLP.  
-   - **Database**: PostgreSQL (structured), Elasticsearch (text), Neo4j (knowledge graphs).  
+   - **Database**: PostgreSQL (structured), Elasticsearch (text).  
 
 2. **Frontend**:  
-   - **Chat Interface**: React.js + express.js .  
+   - **Chat Interface**: React.js css .  
    - **Dashboard**: Plotly/Dash for visualizations.  
 
 3. **Deployment**:  
