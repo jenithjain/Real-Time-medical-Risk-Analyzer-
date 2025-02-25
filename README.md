@@ -6,20 +6,23 @@
 
 
 ## 📌 Overview  
-**MediRisk AI** is an end-to-end system that processes medical responses in real-time, generates risk scores, adapts questionnaires dynamically, and creates actionable insurance reports. Designed for insurers and clinicians, it integrates medical guidelines and provides underwriters with intuitive risk insights.  
+**MediRisk AI** is an end-to-end system that processes medical responses in real-time, generates risk scores, adapts questionnaires dynamically,Mental health check up and creates actionable insurance reports. Designed for insurers and clinicians, it integrates medical guidelines and provides underwriters with intuitive risk insights.  
 
 **Key Innovations**:  
-- Real-time risk scoring with explainable AI.  
-- Reinforcement Learning (RL)-driven adaptive questioning.  
+- Real-time risk scoring with explainable AI.
+- risk assesment report for the insurance company based on the user's data
+- Reinforcement Learning (RL)-driven adaptive questioning.
+- Mental Health check up and review.
 - HIPAA-compliant underwriter dashboard.   
 
 ---
 
 ## 🚀 Features  
 ### **1. Conversational AI Bot**  
-- **Dynamic Questioning**: Adapts follow-up questions using RL and decision trees.  
+- **Dynamic Questioning**: Adapts follow-up questions using RL and decision trees.
+- **Mental Health Score**: User is asked Pyscometric Questions and then scores and recommendations are assigned  on his mental health.
 - **Live Risk Meter**: Visualizes risk score evolution during the chat.  
-- **Wearable Integration**: Pulls data from Fitbit/Apple Health.  
+- **Data Extraction from Report**: extract the body report which is uploaded by user and helps to make questions on it. 
 
 ### **2. Real-Time Risk Engine**  
 - **Models**: XGBoost (structured data), BioBERT (NLP), Survival Analysis (long-term risk).  
@@ -35,11 +38,11 @@
 ### **System Components**  
 1. **Backend**:  
    - **Real-Time API**: FastAPI/Node.js for EHR/wearable integration.  
-   - **ML Models**: PyTorch/XGBoost for risk prediction, Hugging Face for NLP.  
+   - **ML Models**: XGBoost for risk prediction, Hugging Face for NLP.  
    - **Database**: PostgreSQL (structured), Elasticsearch (text), Neo4j (knowledge graphs).  
 
 2. **Frontend**:  
-   - **Chat Interface**: React.js + Langflow.  
+   - **Chat Interface**: React.js + express.js .  
    - **Dashboard**: Plotly/Dash for visualizations.  
 
 3. **Deployment**:  
