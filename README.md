@@ -11,8 +11,7 @@
 **Key Innovations**:  
 - Real-time risk scoring with explainable AI.  
 - Reinforcement Learning (RL)-driven adaptive questioning.  
-- HIPAA-compliant underwriter dashboard.  
-- Hackathon-ready gamification and emergency triage features.  
+- HIPAA-compliant underwriter dashboard.   
 
 ---
 
